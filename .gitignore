@@ -1,0 +1,14 @@
+# Project stuff
+
+# Godot stuff
+.import/
+export.csg
+export_presets.cfg
+
+# Mono stuff
+.mono/
+data_*/
+
+# Visual Studio stuff
+.vs/
+packages/
