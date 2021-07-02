@@ -35,6 +35,16 @@ namespace Scalability
 			cam.LimitBottom = ( room.Y + room.Height ) * Constants.RoomSize;
 		}
 
+		public void SyncCameraToRoom( Tween tween, float tweenDur )
+		{
+			var room = GetParent< RegionRoom >();
+			var cam = GetNode< Camera2D >( "Camera2D" );
+			tween.InterpolateProperty( cam, "limit_left", cam.LimitLeft, room.X * Constants.RoomSize, tweenDur );
+			tween.InterpolateProperty( cam, "limit_top", cam.LimitTop, room.Y * Constants.RoomSize, tweenDur );
+			tween.InterpolateProperty( cam, "limit_right", cam.LimitRight, ( room.X + room.Width ) * Constants.RoomSize, tweenDur );
+			tween.InterpolateProperty( cam, "limit_bottom", cam.LimitBottom, ( room.Y + room.Height ) * Constants.RoomSize, tweenDur );
+		}
+
 		public override void _UnhandledInput( InputEvent @event )
 		{
 			if ( @event is InputEventMouseMotion mm )

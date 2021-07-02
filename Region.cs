@@ -6,6 +6,8 @@ namespace Scalability
 {
 	public class Region : Node2D
 	{
+		public const float CameraTweenDuration = 0.25f;
+
 		private Dictionary<string, RegionRoom> roomsByName = new Dictionary<string, RegionRoom>();
 		private Dictionary<Vector2, RegionRoom> roomsByPos = new Dictionary<Vector2, RegionRoom>();
 
@@ -96,10 +98,10 @@ namespace Scalability
 			}
 		}
 
-		private Vector2 ignoreSideUntilExit = Vector2.Zero;
+		private bool transiting = false;
 		public void PlayerEnteredSide( Node body, Area2D sender, RegionRoom room, Vector2 side )
 		{
-			if ( ignoreSideUntilExit == side )
+			if ( transiting )
 				return;
 
 			if ( !( body is Player player ) )
@@ -110,29 +112,40 @@ namespace Scalability
 
 			var newRoom = GetRoom( new Vector2( ( int )( player.GlobalPosition.x / Constants.RoomSize ),
 												( int )( player.GlobalPosition.y / Constants.RoomSize ) ) + side );
-			if ( newRoom == null )
+			if ( newRoom == null || newRoom == room ) // Not sure why the latter happens
 				return;
 
-			GD.Print( "Moving to room " + newRoom.Name + " from room to the " + side );
+			GD.Print( "Moving to room " + newRoom.Name + " from room " + room.Name );
 
-			ignoreSideUntilExit = -side;
+			transiting = true;
 
 			var oldGlobal = player.GlobalPosition;
 			room.RemoveChild( player );
 			room.Active = false;
+			room.Visible = true;
 			newRoom.AddChild( player );
-			newRoom.Active = true;
-			player.GlobalPosition = oldGlobal + side * player.Radius * 2;
+			newRoom.Visible = true;
+			player.GlobalPosition = oldGlobal;
 
-			player.SyncCameraToRoom();
-
-			// TODO: Notify children that player left room
+			var camTween = GetNode< Tween >( "CamTween" );
+			camTween.InterpolateProperty( player, "global_position", player.GlobalPosition, oldGlobal + side * player.Radius * 2, CameraTweenDuration );
+			player.SyncCameraToRoom( camTween, CameraTweenDuration );
+			camTween.Connect( "tween_all_completed", this, nameof( CameraTweenFinished ), new Godot.Collections.Array() { room, newRoom }, ( int ) ConnectFlags.Oneshot );
+			camTween.Start();
 		}
 
 		public void PlayerExitedSide( Node body, Area2D sender, RegionRoom room, Vector2 side )
 		{
-			if ( side == ignoreSideUntilExit )
-				ignoreSideUntilExit = Vector2.Zero;
+		}
+
+		public void CameraTweenFinished( RegionRoom oldRoom, RegionRoom newRoom )
+		{
+			transiting = false;
+
+			oldRoom.Visible = false;
+			newRoom.Active = true;
+
+			// TODO: Notify children of oldRoom that player left room
 		}
 	}
 }
