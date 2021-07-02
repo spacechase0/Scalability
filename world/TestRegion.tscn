@@ -353,6 +353,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="Intro3"]
+margin_left = 220.0
+margin_top = 132.0
+margin_right = 592.0
+margin_bottom = 312.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]
+You can attack by either [color=lime]shooting[/color] or making a [color=red]melee[/color] attack.
+Shooting consumes size, until you reach your minimum.
+[/center]"
+text = "
+You can attack by either shooting or making a melee attack.
+Shooting consumes size, until you reach your minimum.
+"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Intro4" type="Node2D" parent="."]
 position = Vector2( 800, 800 )
 script = ExtResource( 1 )

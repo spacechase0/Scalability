@@ -17,6 +17,7 @@ namespace Scalability
 		private float shootCooldown = 0;
 
 		private static PackedScene Bullet_Scene = GD.Load< PackedScene >( "res://Bullet.tscn" );
+		private static PackedScene Melee_Scene = GD.Load< PackedScene >( "res://PlayerMelee.tscn" );
 
 		public override Vector2 GetWalkVector()
 		{
@@ -74,6 +75,16 @@ namespace Scalability
 				shootCooldown = ShootCooldownTime;
 			}
 
+			var melee = GetNodeOrNull< PlayerMelee >( "PlayerMelee" );
+			if ( Input.IsActionJustPressed( "melee" ) && melee == null )
+			{
+				melee = ( PlayerMelee ) Melee_Scene.Instance();
+				melee.Connect( "body_entered", this, nameof( SomethingEnteredMelee ), flags: ( int ) ConnectFlags.Oneshot );
+				melee.Scale = new Vector2( Radius / PlayerMelee.BaseSize, Radius / PlayerMelee.BaseSize );
+				melee.Position = new Vector2( Radius, 0 );
+				AddChild( melee );
+			}
+
 			if ( Radius != oldRad )
 			{
 				( GetNode< CollisionShape2D >( "CollisionShape2D" ).Shape as CircleShape2D ).Radius = Radius;
@@ -85,6 +96,11 @@ namespace Scalability
 				Acceleration = MaxSpeed / 5;
 				Deacceleration = Acceleration / 2;
 			}
+		}
+
+		public void SomethingEnteredMelee( Node body )
+		{
+			GD.Print( "We hit " + body );
 		}
 	}
 
