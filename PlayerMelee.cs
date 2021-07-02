@@ -3,12 +3,17 @@ using System;
 
 namespace Scalability
 {
-	public class PlayerMelee : Area2D
+	public class PlayerMelee : Area2D, IHits
 	{
 		[Export]
 		public float Cooldown { get; set; } = 0.65f;
 
 		public const int BaseSize = 24;
+
+		public bool HitsWithType( HitType type )
+		{
+			return type == HitType.Melee;
+		}
 
 		public override void _Ready()
 		{

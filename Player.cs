@@ -110,7 +110,8 @@ namespace Scalability
 
 		public void SomethingEnteredMelee( Node body )
 		{
-			GD.Print( "We hit " + body );
+			if ( body is Obstacle obstacle )
+				obstacle.SomebodyCollided( GetNode( "PlayerMelee" ) );
 		}
 	}
 

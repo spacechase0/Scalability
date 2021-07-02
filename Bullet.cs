@@ -3,9 +3,14 @@ using System;
 
 namespace Scalability
 {
-	public class Bullet : KinematicBody2D
+	public class Bullet : KinematicBody2D, IHits
 	{
 		public float Speed { get; set; } = 500;
+
+		public bool HitsWithType( HitType type )
+		{
+			return type == HitType.Projectile;
+		}
 
 		public override void _PhysicsProcess( float delta )
 		{
@@ -13,6 +18,10 @@ namespace Scalability
 			var coll = MoveAndCollide( vel );
 			if ( coll != null )
 			{
+				// Not sure why this didn't work to begin with without this...
+				// Probably got the layers wrong or something
+				if ( coll.Collider is Obstacle obstacle )
+					obstacle.SomebodyCollided( this );
 				QueueFree();
 			}
 		}
