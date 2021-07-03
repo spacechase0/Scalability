@@ -27,11 +27,12 @@ namespace Scalability
 			if ( VulnerableTo != HitType.ANY && type != VulnerableTo )
 				return;
 
+			GD.Print( GetType() + " hurt with " + type + " for " + amt );
+
 			Health -= amt;
 			var healthBar = GetNode<ProgressBar>( "HealthBar" );
 			healthBar.Value = Health;
-			GD.Print( "hp " + Health + "/" + MaxHealth + " " + healthBar.Value + "/" + healthBar.MaxValue );
-
+			
 			if ( Health <= 0 )
 				QueueFree();
 			else if ( Health < MaxHealth )

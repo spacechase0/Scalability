@@ -110,8 +110,8 @@ namespace Scalability
 			if ( sender.GetParent() != room || player.GetParent() != room )
 				return;
 
-			var newRoom = GetRoom( new Vector2( ( int )( player.GlobalPosition.x / Constants.RoomSize ),
-												( int )( player.GlobalPosition.y / Constants.RoomSize ) ) + side );
+			var newRoom = GetRoom( new Vector2( Mathf.FloorToInt( player.GlobalPosition.x / Constants.RoomSize ),
+												Mathf.FloorToInt( player.GlobalPosition.y / Constants.RoomSize ) ) + side );
 			if ( newRoom == null || newRoom == room ) // Not sure why the latter happens
 				return;
 

@@ -31,7 +31,8 @@ namespace Scalability
 
 		private bool doingMouseInput = false;
 
-		public EventHandler Damaged;
+		[Signal]
+		public delegate void Damaged();
 
 		private float shootCooldown = 0;
 		private float invulnTime = 0;
@@ -63,7 +64,7 @@ namespace Scalability
 			Health -= amountReduced;
 			invulnTime = InvulnerableTime;
 
-			Damaged?.Invoke( this, new EventArgs() );
+			EmitSignal( nameof( Damaged ) );
 
 			if ( Health <= 0 )
 			{

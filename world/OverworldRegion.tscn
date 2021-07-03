@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://RegionRoom.cs" type="Script" id=1]
+[ext_resource path="res://world/Region.tscn" type="PackedScene" id=2]
+
+[node name="OverworldRegion" instance=ExtResource( 2 )]
+
+[node name="Hub" type="Node2D" parent="." index="1"]
+script = ExtResource( 1 )
+Width = 3
+Height = 3

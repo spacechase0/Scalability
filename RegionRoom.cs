@@ -18,10 +18,10 @@ namespace Scalability
 
 		private bool _active = false;
 		public bool Active
-        {
+		{
 			get { return _active; }
 			set
-            {
+			{
 				_active = value;
 				if ( !_active )
 				{
@@ -31,20 +31,20 @@ namespace Scalability
 						exit.Monitoring = false;
 				}
 				else
-                {
+				{
 					PauseMode = PauseModeEnum.Inherit;
 					Visible = true;
 					foreach ( var exit in exits )
 						exit.Monitoring = true;
 				}
-            }
-        }
+			}
+		}
 
 		private List<Area2D> exits = new List<Area2D>();
 
 		public void AddExit( Area2D exit )
-        {
+		{
 			exits.Add( exit );
-        }
+		}
 	}
 }
