@@ -29,6 +29,7 @@ namespace Scalability
 		public float GrowSpeed { get; set; } = 12;
 		public float ShootCooldownTime { get; set; } = 0.5f;
 		public float ShootRadiusCost { get; set; } = 1f;
+		public float DefenseFactor { get; set; } = 20;
 
 		public HashSet<string> Collected { get; } = new HashSet<string>();
 
@@ -51,7 +52,7 @@ namespace Scalability
 			MaxSpeed = 325 - Radius * 4;
 			Acceleration = MaxSpeed / 5;
 			Deacceleration = Acceleration / 2;
-			Defense = ( int ) ( Radius / 20 );
+			Defense = ( int ) ( Radius / DefenseFactor );
 		}
 
 		public void Collect( Collectable collectable )

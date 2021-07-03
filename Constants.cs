@@ -13,6 +13,8 @@ namespace Scalability
         public const int PhysicsMask_Solids = 0x01;
         public const int PhysicsMask_Player = 0x02;
         public const int PhysicsMask_Enemies = 0x04;
-        public const int PhysicsMask_Collectables = 0x08;
+        public const int PhysicsMask_HitsPlayer = 0x08;
+        public const int PhysicsMask_HitsEnemy = 0x0F;
+        public const int PhysicsMask_Obstacles = 0x10;
     }
 }

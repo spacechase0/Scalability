@@ -63,7 +63,7 @@ namespace Scalability
 			var tween = GetNode< Tween >( "CollectedTween" );
 
 			label.Text = "You got " + collectable.GetText();
-			tween.InterpolateProperty( label, "modulate:a", 1f, 0f, 3f );
+			tween.InterpolateProperty( label, "modulate:a", 1f, 0f, 4f );
 			tween.Start();
 		}
 	}
