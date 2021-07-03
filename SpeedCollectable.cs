@@ -3,16 +3,18 @@ using System;
 
 namespace Scalability
 {
-	public class HealthCollectable : Collectable
+	public class SpeedCollectable : Collectable
 	{
 		public override string GetText()
 		{
-			return "Max Health +";
+			return "Speed +";
 		}
 
 		public override void Apply( Player player )
 		{
-			player.MaxHealth += 10;
+			player.MaxSpeed += 125;
+			player.Acceleration += 10;
+			player.Deacceleration += 5;
 		}
 	}
 }

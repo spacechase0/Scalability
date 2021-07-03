@@ -3,16 +3,16 @@ using System;
 
 namespace Scalability
 {
-	public class HealthCollectable : Collectable
+	public class ShootSpeedCollectable : Collectable
 	{
 		public override string GetText()
 		{
-			return "Max Health +";
+			return "Shoot Speed +";
 		}
 
 		public override void Apply( Player player )
 		{
-			player.MaxHealth += 10;
+			player.ShootCooldownTime /= 2.5f;
 		}
 	}
 }

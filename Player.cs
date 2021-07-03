@@ -28,7 +28,7 @@ namespace Scalability
 		public float MaxRadius { get; set; } = 64;
 		public float GrowSpeed { get; set; } = 12;
 		public float ShootCooldownTime { get; set; } = 0.5f;
-		public float ShootRadiusCost { get; set; } = 1f;
+		public float ShootRadiusCost { get; set; } = 2f;
 		public float DefenseFactor { get; set; } = 20;
 
 		public HashSet<string> Collected { get; } = new HashSet<string>();

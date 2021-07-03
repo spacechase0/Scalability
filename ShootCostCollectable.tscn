@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Collectable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ShootCostCollectable.cs" type="Script" id=2]
+
+[node name="ShootCostCollectable" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="3"]
+position = Vector2( 0.673538, 12.6025 )
+color = Color( 0, 1, 0, 1 )
+polygon = PoolVector2Array( -20.8318, -15.7552, -16.4538, -17.888, -13.1984, -15.8674, -11.4023, -12.612, -13.1984, -9.13204, -16.6783, -7.56046, -20.3828, -9.58107, -22.6279, -12.3875 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="." index="4"]
+position = Vector2( 0, 8 )
+color = Color( 0, 1, 0, 1 )
+polygon = PoolVector2Array( 0.0478973, -12.0507, 20.5908, -11.9385, 20.3663, -4.41727, 0.0478973, -4.52953, 0.0478973, -10.9281 )
