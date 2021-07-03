@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace Scalability
 {
@@ -29,10 +30,15 @@ namespace Scalability
 		public float ShootCooldownTime { get; set; } = 0.5f;
 		public float ShootRadiusCost { get; set; } = 1f;
 
+		public HashSet<string> Collected { get; } = new HashSet<string>();
+
 		private bool doingMouseInput = false;
 
 		[Signal]
 		public delegate void Damaged();
+
+		[Signal]
+		public delegate void CollectedCollectable(Collectable collectable);
 
 		private float shootCooldown = 0;
 		private float invulnTime = 0;
@@ -50,7 +56,12 @@ namespace Scalability
 
 		public void Collect( Collectable collectable )
 		{
-			GD.Print( "Collected " + collectable );
+			if ( collectable.Tag != null && !Collected.Contains( collectable.Tag ) )
+				Collected.Add( collectable.Tag );
+
+			collectable.Apply( this );
+
+			EmitSignal( nameof( CollectedCollectable ), collectable );
 		}
 
 		public void Hurt( Node source, int amount )
@@ -72,6 +83,12 @@ namespace Scalability
 				GetTree().ChangeScene( "res://scenes/GameOverScene.tscn" );
 			}
 		}
+
+		public void GoToRegion( string region, string room, Vector2 coords )
+        {
+			Health = MaxHealth;
+			GetParent<RegionRoom>().GetParent<Region>().GetParent<PlayScene>().SetupWarp( region, room, coords );
+        }
 
 		public override Vector2 GetWalkVector()
 		{

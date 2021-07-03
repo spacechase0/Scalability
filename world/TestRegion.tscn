@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://RegionRoom.cs" type="Script" id=1]
 [ext_resource path="res://Obstacle.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Collectable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://MeleeEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://TurretEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Warp.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 400 )
@@ -39,34 +40,34 @@ extents = Vector2( 32, 200 )
 [sub_resource type="CubeMesh" id=10]
 size = Vector3( 64, 400, 2 )
 
-[sub_resource type="RectangleShape2D" id=19]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 336, 16 )
 
-[sub_resource type="CubeMesh" id=20]
+[sub_resource type="CubeMesh" id=12]
 size = Vector3( 672, 32, 2 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 32, 800 )
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="CubeMesh" id=14]
 size = Vector3( 64, 1600, 2 )
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 432, 32 )
 
-[sub_resource type="CubeMesh" id=14]
+[sub_resource type="CubeMesh" id=16]
 size = Vector3( 864, 64, 2 )
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 800, 32 )
 
-[sub_resource type="CubeMesh" id=16]
+[sub_resource type="CubeMesh" id=18]
 size = Vector3( 1600, 64, 2 )
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 32, 550 )
 
-[sub_resource type="CubeMesh" id=18]
+[sub_resource type="CubeMesh" id=20]
 size = Vector3( 64, 1100, 2 )
 
 [sub_resource type="RectangleShape2D" id=21]
@@ -80,6 +81,12 @@ extents = Vector2( 250, 32 )
 
 [sub_resource type="CubeMesh" id=24]
 size = Vector3( 500, 64, 2 )
+
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 100, 100 )
+
+[sub_resource type="CubeMesh" id=26]
+size = Vector3( 200, 200, 2 )
 
 [node name="TestRegion" instance=ExtResource( 5 )]
 
@@ -400,11 +407,11 @@ position = Vector2( 400, 688 )
 mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Intro3/Obstacle" index="0"]
-shape = SubResource( 19 )
+shape = SubResource( 11 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Intro3/Obstacle" index="1"]
 modulate = Color( 1, 0, 0, 1 )
-mesh = SubResource( 20 )
+mesh = SubResource( 12 )
 
 [node name="Obstacle2" parent="Intro3" index="8" instance=ExtResource( 2 )]
 position = Vector2( 400, 720 )
@@ -412,11 +419,11 @@ mode = 1
 BreakType = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Intro3/Obstacle2" index="0"]
-shape = SubResource( 19 )
+shape = SubResource( 11 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Intro3/Obstacle2" index="1"]
 modulate = Color( 0, 1, 0, 1 )
-mesh = SubResource( 20 )
+mesh = SubResource( 12 )
 
 [node name="IntroTest" type="Node2D" parent="." index="3"]
 position = Vector2( 800, 800 )
@@ -431,10 +438,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D" index="0"]
-shape = SubResource( 11 )
+shape = SubResource( 13 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D" index="1"]
-mesh = SubResource( 12 )
+mesh = SubResource( 14 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="IntroTest" index="1"]
 position = Vector2( 432, 32 )
@@ -443,10 +450,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D2" index="0"]
-shape = SubResource( 13 )
+shape = SubResource( 15 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D2" index="1"]
-mesh = SubResource( 14 )
+mesh = SubResource( 16 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="IntroTest" index="2"]
 position = Vector2( 800, 1568 )
@@ -455,10 +462,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D3" index="0"]
-shape = SubResource( 15 )
+shape = SubResource( 17 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D3" index="1"]
-mesh = SubResource( 16 )
+mesh = SubResource( 18 )
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="IntroTest" index="3"]
 position = Vector2( 32, 550 )
@@ -467,10 +474,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D4" index="0"]
-shape = SubResource( 17 )
+shape = SubResource( 19 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D4" index="1"]
-mesh = SubResource( 18 )
+mesh = SubResource( 20 )
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="IntroTest" index="4"]
 position = Vector2( 32, 1450 )
@@ -484,11 +491,15 @@ shape = SubResource( 5 )
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D5" index="1"]
 mesh = SubResource( 6 )
 
-[node name="Label" type="Label" parent="IntroTest" index="5"]
-margin_left = 312.199
-margin_top = 490.609
-margin_right = 641.199
-margin_bottom = 539.609
+[node name="Collectable" parent="IntroTest" index="5" instance=ExtResource( 6 )]
+position = Vector2( 480.273, 347.904 )
+Tag = "IntroCollectable"
+
+[node name="Label" type="Label" parent="IntroTest/Collectable" index="3"]
+margin_left = -168.074
+margin_top = 142.705
+margin_right = 160.926
+margin_bottom = 191.705
 custom_fonts/font = ExtResource( 4 )
 text = "Permanent powerups look like this.
 This one does nothing."
@@ -498,10 +509,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Collectable" parent="IntroTest" index="6" instance=ExtResource( 6 )]
-position = Vector2( 480.273, 347.904 )
-
-[node name="Obstacle" parent="IntroTest" index="7" instance=ExtResource( 2 )]
+[node name="Obstacle" parent="IntroTest" index="6" instance=ExtResource( 2 )]
 position = Vector2( 32, 1200 )
 mode = 1
 BreakType = 2
@@ -513,7 +521,7 @@ shape = SubResource( 21 )
 modulate = Color( 1, 1, 0, 1 )
 mesh = SubResource( 22 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="IntroTest" index="8"]
+[node name="RichTextLabel" type="RichTextLabel" parent="IntroTest" index="7"]
 margin_left = 143.333
 margin_top = 1362.33
 margin_right = 283.333
@@ -527,7 +535,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MeleeEnemy" parent="IntroTest" index="9" instance=ExtResource( 7 )]
+[node name="MeleeEnemy" parent="IntroTest" index="8" instance=ExtResource( 7 )]
 position = Vector2( 1212.41, 491.499 )
 MaxSpeed = 175.0
 
@@ -545,7 +553,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StaticBody2D6" type="StaticBody2D" parent="IntroTest" index="10"]
+[node name="StaticBody2D6" type="StaticBody2D" parent="IntroTest" index="9"]
 position = Vector2( 800, 800 )
 rotation = -0.785398
 __meta__ = {
@@ -558,7 +566,7 @@ shape = SubResource( 23 )
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D6" index="1"]
 mesh = SubResource( 24 )
 
-[node name="TurretEnemy" parent="IntroTest" index="11" instance=ExtResource( 8 )]
+[node name="TurretEnemy" parent="IntroTest" index="10" instance=ExtResource( 8 )]
 position = Vector2( 933.662, 938.413 )
 
 [node name="Label2" type="Label" parent="IntroTest/TurretEnemy" index="3"]
@@ -639,18 +647,7 @@ shape = SubResource( 5 )
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroExit/StaticBody2D5" index="1"]
 mesh = SubResource( 6 )
 
-[node name="Label" type="Label" parent="IntroExit" index="5"]
-margin_left = 179.134
-margin_top = 566.628
-margin_right = 645.134
-margin_bottom = 623.628
-custom_fonts/font = ExtResource( 3 )
-text = "TODO: WARP POINT"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="IntroExit" index="6"]
+[node name="RichTextLabel" type="RichTextLabel" parent="IntroExit" index="5"]
 margin_left = 262.643
 margin_top = 141.52
 margin_right = 544.643
@@ -665,3 +662,16 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Warp" parent="IntroExit" index="6" instance=ExtResource( 9 )]
+position = Vector2( 400, 400 )
+Region = "Overworld"
+Room = "Hub"
+Coordinates = Vector2( 1200, 2000 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IntroExit/Warp" index="0"]
+shape = SubResource( 25 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="IntroExit/Warp" index="1"]
+modulate = Color( 0.501961, 0, 0.501961, 0.501961 )
+mesh = SubResource( 26 )

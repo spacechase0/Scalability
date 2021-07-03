@@ -5,8 +5,23 @@ namespace Scalability
 {
 	public class Collectable : Area2D
 	{
+		[Export]
+		public string Tag { get; set; }
+
+		public virtual string GetText()
+		{
+			return "Absolutely Nothing";
+		}
+
+		public virtual void Apply( Player player )
+		{
+		}
+
 		public override void _Ready()
 		{
+			if ( PlayScene.player != null && PlayScene.player.Collected.Contains( Tag ) )
+				QueueFree();
+
 			Connect( "body_entered", this, nameof( SomeoneCollected ) );
 		}
 

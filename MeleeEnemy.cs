@@ -30,6 +30,9 @@ namespace Scalability
 			if ( player == null )
 				return Vector2.Zero;
 
+			if ( GlobalPosition.DistanceTo( player.GlobalPosition ) > 800 )
+				return Vector2.Zero;
+
 			float angle = GetAngleTo( player.GlobalPosition );
 			return new Vector2( Mathf.Cos( angle ), Mathf.Sin( angle ) );
 		}
