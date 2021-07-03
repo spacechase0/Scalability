@@ -3,13 +3,20 @@ using System;
 
 namespace Scalability
 {
-	public class MeleeEnemy : Enemy
+	public class TurretEnemy : Enemy
 	{
 		[Export]
-		public int Damage = 3;
+		public int Damage = 6;
+
+		[Export]
+		public float ChargeTime = 0.5f;
 
 		[Export]
 		public int Radius = 24;
+
+		public float chargeTime = 0;
+
+		private static readonly PackedScene EnemyBullet_Scene = GD.Load< PackedScene >( "res://EnemyBullet.tscn" );
 
 		public override void _Ready()
 		{
@@ -22,35 +29,27 @@ namespace Scalability
 			var sphere = GetNode< MeshInstance2D >( "MeshInstance2D" ).Mesh as SphereMesh;
 			sphere.Radius = Radius;
 			sphere.Height = Radius * 2;
+
+			chargeTime = ChargeTime;
 		}
 
-		public override Vector2 GetWalkVector()
+		public override void _Process( float delta)
 		{
 			var player = GetParent().GetNodeOrNull( "Player" ) as Player;
 			if ( player == null )
-				return Vector2.Zero;
+				return;
 
-			float angle = GetAngleTo( player.GlobalPosition );
-			return new Vector2( Mathf.Cos( angle ), Mathf.Sin( angle ) );
-		}
-
-		public override void _PhysicsProcess( float delta )
-		{
-			base._PhysicsProcess( delta );
-
-			for ( int i = 0; i < GetSlideCount(); ++i )
+			chargeTime -= delta;
+			if ( chargeTime <= 0 )
 			{
-				var coll = GetSlideCollision( i );
-				SomebodyCollided( coll.Collider as Node );
+				chargeTime = ChargeTime;
+
+				var bullet = ( Bullet ) EnemyBullet_Scene.Instance();
+				bullet.Damage = 6;
+				bullet.Rotation = GetAngleTo( player.GlobalPosition );
+				GetParent().AddChild( bullet );
+				bullet.Position = Position;
 			}
-		}
-
-		public void SomebodyCollided( Node body )
-		{
-			if ( body is Player player )
-			{
-				player.Hurt( this, Damage );
-			}    
 		}
 	}
 }

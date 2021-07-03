@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://RegionRoom.cs" type="Script" id=1]
 [ext_resource path="res://Obstacle.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://world/Region.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Collectable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://MeleeEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://TurretEnemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 400 )
@@ -73,6 +74,12 @@ extents = Vector2( 16, 100 )
 
 [sub_resource type="CubeMesh" id=22]
 size = Vector3( 32, 200, 2 )
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 250, 32 )
+
+[sub_resource type="CubeMesh" id=24]
+size = Vector3( 500, 64, 2 )
 
 [node name="TestRegion" instance=ExtResource( 5 )]
 
@@ -482,10 +489,10 @@ shape = SubResource( 5 )
 mesh = SubResource( 6 )
 
 [node name="Label" type="Label" parent="IntroTest" index="5"]
-margin_left = 164.903
-margin_top = 369.447
-margin_right = 493.903
-margin_bottom = 418.447
+margin_left = 312.199
+margin_top = 490.609
+margin_right = 641.199
+margin_bottom = 539.609
 custom_fonts/font = ExtResource( 4 )
 text = "Permanent powerups look like this.
 This one does nothing."
@@ -496,7 +503,7 @@ __meta__ = {
 }
 
 [node name="Collectable" parent="IntroTest" index="6" instance=ExtResource( 6 )]
-position = Vector2( 332.978, 226.742 )
+position = Vector2( 480.273, 347.904 )
 
 [node name="Obstacle" parent="IntroTest" index="7" instance=ExtResource( 2 )]
 position = Vector2( 32, 1200 )
@@ -524,10 +531,8 @@ __meta__ = {
 }
 
 [node name="MeleeEnemy" parent="IntroTest" index="9" instance=ExtResource( 7 )]
-position = Vector2( 753.164, 613.631 )
+position = Vector2( 1212.41, 491.499 )
 MaxSpeed = 175.0
-Damage = 3
-Radius = 24
 
 [node name="Label" type="Label" parent="IntroTest/MeleeEnemy" index="3"]
 margin_left = -75.0
@@ -537,6 +542,36 @@ margin_bottom = 99.0
 custom_fonts/font = ExtResource( 4 )
 text = "This is an enemy.
 Try to not die."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="IntroTest" index="10"]
+position = Vector2( 800, 800 )
+rotation = -0.785398
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D6" index="0"]
+shape = SubResource( 23 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D6" index="1"]
+mesh = SubResource( 24 )
+
+[node name="TurretEnemy" parent="IntroTest" index="11" instance=ExtResource( 8 )]
+position = Vector2( 933.662, 938.413 )
+
+[node name="Label2" type="Label" parent="IntroTest/TurretEnemy" index="3"]
+margin_left = -75.0
+margin_top = 50.0
+margin_right = 74.0
+margin_bottom = 99.0
+custom_fonts/font = ExtResource( 4 )
+text = "Another enemy!
+Great..."
 align = 1
 valign = 1
 __meta__ = {
@@ -606,3 +641,30 @@ shape = SubResource( 5 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroExit/StaticBody2D5" index="1"]
 mesh = SubResource( 6 )
+
+[node name="Label" type="Label" parent="IntroExit" index="5"]
+margin_left = 179.134
+margin_top = 566.628
+margin_right = 645.134
+margin_bottom = 623.628
+custom_fonts/font = ExtResource( 3 )
+text = "TODO: WARP POINT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="IntroExit" index="6"]
+margin_left = 262.643
+margin_top = 141.52
+margin_right = 544.643
+margin_bottom = 208.52
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]That's it for the tutorial!
+Good luck in the [color=purple]REAL WORLD[/color]![/center]"
+text = "That's it for the tutorial!
+Good luck in the REAL WORLD!"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -5,8 +5,13 @@ namespace Scalability
 {
 	public class Bullet : KinematicBody2D, IHits
 	{
-		public const int Damage = 3;
+		[Export]
+		public bool HurtsPlayer { get; set; } = false;
 
+		[Export]
+		public int Damage { get; set; } = 3;
+
+		[Export]
 		public float Speed { get; set; } = 500;
 
 		public bool HitsWithType( HitType type )
@@ -25,8 +30,11 @@ namespace Scalability
 				if ( coll.Collider is Obstacle obstacle )
 					obstacle.SomebodyCollided( this );
 
-				else if ( coll.Collider is Enemy enemy )
+				else if ( !HurtsPlayer && coll.Collider is Enemy enemy )
 					enemy.Hurt( HitType.Projectile, Damage );
+
+				else if ( HurtsPlayer && coll.Collider is Player player )
+					player.Hurt( this, Damage );
 
 				QueueFree();
 			}
