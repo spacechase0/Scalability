@@ -10,6 +10,8 @@ namespace Scalability
     {
         Melee,
         Projectile,
+
+        ANY
     }
 
     public interface IHits

@@ -15,7 +15,7 @@ namespace Scalability
 
 		public void SomebodyCollided( Node body )
 		{
-			if ( body is IHits hits && hits.HitsWithType( BreakType ) )
+			if ( body is IHits hits && ( hits.HitsWithType( BreakType ) || BreakType == HitType.ANY ) )
 				QueueFree();
 		}
 	}

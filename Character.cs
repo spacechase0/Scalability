@@ -6,8 +6,14 @@ namespace Scalability
 	public class Character : KinematicBody2D
 	{
 		public Vector2 Velocity { get; set; }
+
+		[Export]
 		public float MaxSpeed { get; set; } = 200;
+
+		[Export]
 		public float Acceleration { get; set; } = 40;
+
+		[Export]
 		public float Deacceleration { get; set; } = 20;
 
 		public virtual Vector2 GetWalkVector()
@@ -20,6 +26,8 @@ namespace Scalability
 			Vector2 vel = Velocity;
 
 			Vector2 movement = GetWalkVector();
+			if ( movement.Length() > 1 )
+				movement = movement.Normalized();
 			/*
 			if ( movement.Length() != 0 )
 				movement = movement.Normalized();

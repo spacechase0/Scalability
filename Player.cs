@@ -5,6 +5,23 @@ namespace Scalability
 {
 	public class Player : Character
 	{
+		public const float InvulnerableTime = 0.6f;
+		public const float InvulnerableFlash = 0.2f;
+
+		private int _maxHealth = 10;
+		public int MaxHealth
+		{
+			get { return _maxHealth; }
+			set
+			{
+				Health += value - _maxHealth;
+				_maxHealth = value;
+			}
+		}
+		public int Health { get; set; } = 10;
+
+		public int Defense { get; set; } = 0;
+
 		public float Radius { get; private set; } = 32;
 		public float MinRadius { get; set; } = 24;
 		public float MaxRadius { get; set; } = 64;
@@ -15,9 +32,34 @@ namespace Scalability
 		private bool doingMouseInput = false;
 
 		private float shootCooldown = 0;
+		private float invulnTime = 0;
 
 		private static PackedScene Bullet_Scene = GD.Load< PackedScene >( "res://Bullet.tscn" );
 		private static PackedScene Melee_Scene = GD.Load< PackedScene >( "res://PlayerMelee.tscn" );
+
+		private void SyncSizeStats()
+		{
+			MaxSpeed = 325 - Radius * 4;
+			Acceleration = MaxSpeed / 5;
+			Deacceleration = Acceleration / 2;
+			Defense = ( int ) ( Radius / 20 );
+		}
+
+		public void Collect( Collectable collectable )
+		{
+			GD.Print( "Collected " + collectable );
+		}
+
+		public void Hurt( Node source, int amount )
+		{
+			if ( invulnTime > 0 )
+				return;
+
+			GD.Print( "Player hurt by " + source + " for " + amount );
+
+			Health -= Math.Max( amount - Defense, 1 );
+			invulnTime = InvulnerableTime;
+		}
 
 		public override Vector2 GetWalkVector()
 		{
@@ -45,6 +87,11 @@ namespace Scalability
 			tween.InterpolateProperty( cam, "limit_bottom", cam.LimitBottom, ( room.Y + room.Height ) * Constants.RoomSize, tweenDur );
 		}
 
+		public override void _Ready()
+		{
+			SyncSizeStats();
+		}
+
 		public override void _UnhandledInput( InputEvent @event )
 		{
 			if ( @event is InputEventMouseMotion mm )
@@ -56,6 +103,15 @@ namespace Scalability
 
 		public override void _Process( float delta )
 		{
+			if ( invulnTime > 0 )
+			{
+				invulnTime -= delta;
+				if ( invulnTime <= 0 )
+					Visible = true;
+				else
+					Visible = ( invulnTime % InvulnerableFlash ) > InvulnerableFlash / 2;
+			}
+
 			Vector2 joystick = new Vector2( Input.GetJoyAxis( 0, ( int ) JoystickList.Axis2 ), Input.GetJoyAxis( 0, ( int ) JoystickList.Axis3 ) );
 			if ( joystick.Length() >= 0.15f )
 			{
@@ -102,16 +158,17 @@ namespace Scalability
 				mesh.Radius = Radius;
 				mesh.Height = Radius * 2;
 
-				MaxSpeed = 325 - Radius * 4;
-				Acceleration = MaxSpeed / 5;
-				Deacceleration = Acceleration / 2;
+				SyncSizeStats();
 			}
 		}
 
 		public void SomethingEnteredMelee( Node body )
 		{
+			GD.Print( "Player melee'd " + body );
 			if ( body is Obstacle obstacle )
 				obstacle.SomebodyCollided( GetNode( "PlayerMelee" ) );
+			else if ( body is Enemy enemy )
+				enemy.Hurt( HitType.Melee, ( int ) ( Radius / 12 ) );
 		}
 	}
 

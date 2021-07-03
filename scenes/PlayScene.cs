@@ -20,6 +20,7 @@ namespace Scalability
 
 			var startRoom = region.GetRoom( StartingRoom );
 			player = ( Player ) Player_Scene.Instance();
+			player.Name = "Player";
 			startRoom.AddChild( player );
 			player.Position = StartingPosition;
 			startRoom.Active = true;
