@@ -31,6 +31,8 @@ namespace Scalability
 
 		private bool doingMouseInput = false;
 
+		public EventHandler Damaged;
+
 		private float shootCooldown = 0;
 		private float invulnTime = 0;
 
@@ -55,10 +57,19 @@ namespace Scalability
 			if ( invulnTime > 0 )
 				return;
 
-			GD.Print( "Player hurt by " + source + " for " + amount );
+			int amountReduced = Math.Max( amount - Defense, 1 );
+			GD.Print( "Player hurt by " + source + " for " + amount +"->" + amountReduced );
 
-			Health -= Math.Max( amount - Defense, 1 );
+			Health -= amountReduced;
 			invulnTime = InvulnerableTime;
+
+			Damaged?.Invoke( this, new EventArgs() );
+
+			if ( Health <= 0 )
+			{
+				QueueFree();
+				GetTree().ChangeScene( "res://scenes/GameOverScene.tscn" );
+			}
 		}
 
 		public override Vector2 GetWalkVector()

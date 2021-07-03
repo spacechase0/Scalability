@@ -25,6 +25,16 @@ namespace Scalability
 			player.Position = StartingPosition;
 			startRoom.Active = true;
 			player.SyncCameraToRoom();
+			player.Damaged += OnPlayerDamaged;
+		}
+
+		private void OnPlayerDamaged( object sender, EventArgs args )
+		{
+			var player = sender as Player;
+
+			var healthBar = GetNode< ProgressBar >( "UI/HealthBar" );
+			healthBar.Value = player.Health;
+			healthBar.MaxValue = player.MaxHealth;
 		}
 	}
 }

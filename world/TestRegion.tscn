@@ -199,10 +199,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Intro2/StaticBody2D3" index="0"]
 shape = SubResource( 3 )
-disabled = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Intro2/StaticBody2D3" index="1"]
-visible = false
 mesh = SubResource( 4 )
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Intro2" index="2"]
@@ -446,10 +444,8 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/StaticBody2D2" index="0"]
 shape = SubResource( 13 )
-disabled = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="IntroTest/StaticBody2D2" index="1"]
-visible = false
 mesh = SubResource( 14 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="IntroTest" index="2"]
@@ -507,7 +503,7 @@ position = Vector2( 480.273, 347.904 )
 
 [node name="Obstacle" parent="IntroTest" index="7" instance=ExtResource( 2 )]
 position = Vector2( 32, 1200 )
-BreakType = 1
+BreakType = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IntroTest/Obstacle" index="0"]
 shape = SubResource( 21 )

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://TitleFont.tres" type="DynamicFont" id=1]
+
+[node name="GameOverScene" type="Node"]
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -142.0
+margin_top = -28.5
+margin_right = 142.0
+margin_bottom = 28.5
+custom_fonts/font = ExtResource( 1 )
+text = "Game Over"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
